@@ -51,4 +51,3 @@ export function randomInt(min: number, max: number): number {
     const randomNumber = Math.floor(Math.random() * (max - min + 1));
     return randomNumber + min;
 }
-

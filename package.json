@@ -1,5 +1,5 @@
 {
-  "name": "ndknitor",
+  "name": "ndknitor-ts",
   "version": "1.0.0",
   "description": "Global utility library",
   "main": "index.ts",
