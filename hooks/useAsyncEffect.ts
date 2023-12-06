@@ -2,7 +2,7 @@ import { useEffect, DependencyList } from 'react';
 
 type AsyncEffectCallback = () => Promise<void>;
 
-function useAsyncEffect(asyncEffect: AsyncEffectCallback, dependencies: DependencyList) {
+export default function useAsyncEffect(asyncEffect: AsyncEffectCallback, dependencies: DependencyList) {
     useEffect(() => {
         const effectPromise = asyncEffect();
 
@@ -13,5 +13,3 @@ function useAsyncEffect(asyncEffect: AsyncEffectCallback, dependencies: Dependen
         };
     }, dependencies);
 };
-
-export default useAsyncEffect;

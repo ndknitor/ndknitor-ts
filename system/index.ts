@@ -1,6 +1,16 @@
 
-export function replace<T>(value: T[], replacer: T, comparator: (v: T) => boolean) {
-    return value.map((item) => (comparator(item) ? replacer : item));
+export function replaceElement<T>(array: T[], replacer: T, comparator: (v: T) => boolean) {
+    return array.map((item) => (comparator(item) ? replacer : item));
+}
+
+export function mergeElement<T>(array: T[], merger: T, comparator: (v: T) => boolean){
+    const index = array.findIndex(comparator);
+    if (index !== -1) {
+      array[index] = merger;
+    } else {
+      array.push(merger);
+    }
+    return array;
 }
 
 export function range(start: number, end: number) {
