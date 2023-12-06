@@ -1,15 +1,19 @@
 import { useEffect, DependencyList } from 'react';
 
-type AsyncEffectCallback = () => Promise<void>;
+export default function useAsyncEffect(effect: (isMounted: () => boolean) => unknown | Promise<unknown>, deps: DependencyList) {
+    useEffect(function () {
+        var result;
+        var mounted = true;
+        var maybePromise = effect(function () {
+            return mounted;
+        });
 
-export default function useAsyncEffect(asyncEffect: AsyncEffectCallback, dependencies: DependencyList) {
-    useEffect(() => {
-        const effectPromise = asyncEffect();
+        Promise.resolve(maybePromise).then(function (value) {
+            result = value;
+        });
 
-        return () => {
-            if (effectPromise && typeof effectPromise.then === 'function') {
-                effectPromise.then(() => { }).catch(() => { }); 
-            }
+        return function () {
+            mounted = false;
         };
-    }, dependencies);
-};
+    }, deps);
+}

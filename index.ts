@@ -1,5 +1,7 @@
 import {
     useAsyncEffect,
+    useDebounceCall,
+    useThrottledCall,
     useEventListener,
     useIsomorphicLayoutEffect,
     useLocalStorage,
@@ -31,6 +33,8 @@ export {
     sleep,
     truncateString,
     useDebouncedEffect,
+    useDebounceCall,
+    useThrottledCall,
     useThrottledEffect,
     useAsyncEffect,
     useEventListener,
