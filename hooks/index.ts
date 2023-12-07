@@ -11,6 +11,10 @@ import useLocalStorage from "./useLocalStorage";
 import useSessionStorage from "./useSessionStorage";
 import useWindowSize from "./useWindowSize";
 import useThrottledEffect from "./useThrottledEffect";
+import useAsyncDebounceCall from "./useAsyncDebounceCall";
+import useAsyncDebouncedEffect from "./useAsyncDebouncedEffect";
+import useAsyncThrottledCall from "./useAsyncThrottledCall";
+import useAsyncThrottledEffect from "./useAsyncThrottledEffect";
 
 export {
     useAsyncEffect,
@@ -25,5 +29,9 @@ export {
     useStateDebounce,
     useStateThrottle,
     useToggle,
-    useWindowSize
+    useWindowSize,
+    useAsyncDebounceCall,
+    useAsyncDebouncedEffect,
+    useAsyncThrottledCall,
+    useAsyncThrottledEffect
 };
