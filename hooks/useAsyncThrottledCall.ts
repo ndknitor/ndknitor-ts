@@ -5,6 +5,6 @@ export default function useAsyncThrottledCall<T>(initValue: T, callBack: (v: T) 
     const [value, setValue] = useState(initValue);
     useAsyncThrottledEffect(async () => {
         await callBack(value);
-    }, [value], delay);
+    }, [value, callBack], delay);
     return [value, setValue];
 }

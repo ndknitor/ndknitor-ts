@@ -5,6 +5,6 @@ export default function useDebounceCall<T>(initValue: T, callBack: (v: T) => voi
     const [value, setValue] = useState(initValue);
     useDebouncedEffect(() => {
         callBack(value);
-    }, [value], delay);
+    }, [value, callBack], delay);
     return [value, setValue];
 }

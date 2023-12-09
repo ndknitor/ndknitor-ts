@@ -5,6 +5,6 @@ export default function useAsyncDebounceCall<T>(initValue: T, callBack: (v: T) =
     const [value, setValue] = useState(initValue);
     useAsyncDebouncedEffect(async () => {
         await callBack(value);
-    }, [value], delay);
+    }, [value, callBack], delay);
     return [value, setValue];
 }
