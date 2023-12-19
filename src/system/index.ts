@@ -29,9 +29,9 @@ export function formatNumber(num: number | undefined, separator: string = ".") {
     return "";
 }
 
-// export function sleep(ms: number): Promise<void> {
-//     return new Promise((resolve) => setTimeOut(resolve, ms));
-// }
+export function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export function truncateString(str: string | undefined, wordCount: number): string {
     if (str) {
