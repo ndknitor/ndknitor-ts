@@ -14,7 +14,11 @@ export function mergeElement<T>(array: T[], merger: T, comparator: (v: T) => boo
 }
 
 export function range(start: number, end: number) {
-    return Array.from(Array(end - start + 1).keys()).map(x => x + start);
+    const result: number[] = [];
+    for (let i = start; i <= end; i++) {
+        result.push(parseInt(i.toString()));
+    }
+    return result;
 }
 
 export function propertyName(propertyFunction: Function): string {
