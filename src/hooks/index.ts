@@ -64,3 +64,13 @@ export function useThrottledCall<T>(initValue: T, callBack: (v: T) => void | Pro
     }, [value], delay);
     return [value, setValue];
 }
+
+export function useInitEffect(effect: () => void | Promise<void>) {
+    const inited = useRef(false);
+    useAsyncEffect(() => {
+        if (!inited.current) {
+            inited.current = true;
+            return effect();
+        }
+    }, [inited]);
+}
