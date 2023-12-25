@@ -1,4 +1,4 @@
-import { DependencyList, useCallback, useEffect, useRef, useState } from "react";
+import { DependencyList, useCallback, useEffect, useRef, useState, version } from "react";
 
 export function useAsyncEffect(effect: (isMounted: () => boolean) => unknown | Promise<unknown>, deps: DependencyList) {
     useEffect(function () {
@@ -39,6 +39,21 @@ export function useDebounceCall<T>(initValue: T, callBack: (v: T) => void | Prom
     return [value, setValue];
 }
 
+export function useDebounceState<T>(initValue?: T, delay: number = 500) {
+    const [value, setValue] = useState(initValue);
+    const [dValue, setDValue] = useState(initValue);
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => setDValue(value), delay);
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [value, delay]);
+
+    return [value, dValue, setValue];
+}
+
 export function useThrottledEffect(effect: () => void | Promise<void> | (() => void) | (() => Promise<void>), deps: DependencyList, delay: number = 500) {
     const lastRan = useRef(Date.now());
     useAsyncEffect(() => {
@@ -55,6 +70,24 @@ export function useThrottledEffect(effect: () => void | Promise<void> | (() => v
     },
         [delay, ...deps],
     );
+}
+
+export function useThrottledState<T>(initValue: T, delay: number = 500) {
+    const lastRan = useRef(Date.now());
+    const [value, setValue] = useState(initValue);
+    const [tValue, setTValue] = useState(initValue);
+    useEffect(() => {
+        const handler = setTimeout(async function () {
+            if (Date.now() - lastRan.current >= delay) {
+                setTValue(value);
+                lastRan.current = Date.now();
+            }
+        }, delay - (Date.now() - lastRan.current));
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value, tValue, setTValue]);
 }
 
 export function useThrottledCall<T>(initValue: T, callBack: (v: T) => void | Promise<void>, delay: number = 500) {
