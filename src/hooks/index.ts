@@ -1,4 +1,4 @@
-import { DependencyList, useCallback, useEffect, useRef, useState } from "react";
+import { DependencyList, Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 
 export function useAsyncEffect(effect: (isMounted: () => boolean) => unknown | Promise<unknown>, deps: DependencyList) {
     useEffect(function () {
@@ -21,11 +21,11 @@ export function useAsyncEffect(effect: (isMounted: () => boolean) => unknown | P
 export function useToggle(defaultValue?: boolean) {
     const [value, setValue] = useState(!!defaultValue)
     const toggle = useCallback(() => setValue(x => !x), []);
-    return [value, toggle];
+    return [value, toggle] as [boolean, () => void];
 }
 
 export function useDebouncedEffect(effect: () => void | Promise<void> | (() => void) | (() => Promise<void>), deps: DependencyList, delay: number = 500) {
-    useAsyncEffect(() => {
+    useEffect(() => {
         const handler = setTimeout(async () => await effect(), delay);
         return () => clearTimeout(handler);
     }, [...(deps || []), delay]);
@@ -36,8 +36,9 @@ export function useDebounceCall<T>(initValue: T, callBack: (v: T) => void | Prom
     useDebouncedEffect(async () => {
         await callBack(value);
     }, [value], delay);
-    return [value, setValue];
+    return [value, setValue] as [T, Dispatch<SetStateAction<T>>];
 }
+
 
 export function useDebounceState<T>(initValue?: T, delay: number = 500) {
     const [value, setValue] = useState(initValue);
@@ -51,12 +52,12 @@ export function useDebounceState<T>(initValue?: T, delay: number = 500) {
         };
     }, [value, delay]);
 
-    return [value, dValue, setValue];
+    return [value, dValue, setValue] as [T,T, Dispatch<SetStateAction<T>>];
 }
 
 export function useThrottledEffect(effect: () => void | Promise<void> | (() => void) | (() => Promise<void>), deps: DependencyList, delay: number = 500) {
     const lastRan = useRef(Date.now());
-    useAsyncEffect(() => {
+    useEffect(() => {
         const handler = setTimeout(async function () {
             if (Date.now() - lastRan.current >= delay) {
                 await effect();
@@ -88,6 +89,8 @@ export function useThrottledState<T>(initValue: T, delay: number = 500) {
             clearTimeout(handler);
         };
     }, [value, tValue, setTValue]);
+
+    return [value, tValue, setValue] as [T, T, Dispatch<SetStateAction<T>>];
 }
 
 export function useThrottledCall<T>(initValue: T, callBack: (v: T) => void | Promise<void>, delay: number = 500) {
@@ -95,7 +98,7 @@ export function useThrottledCall<T>(initValue: T, callBack: (v: T) => void | Pro
     useThrottledEffect(async () => {
         await callBack(value);
     }, [value], delay);
-    return [value, setValue];
+    return [value, setValue] as [T, Dispatch<SetStateAction<T>>];
 }
 
 export function useInitEffect(effect: () => void | Promise<void>) {
