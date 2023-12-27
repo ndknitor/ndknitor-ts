@@ -1,17 +1,23 @@
+// declare global {
+//     interface Array<T> {
+//         replace(replacer: T, comparator: (v: T) => boolean): T[];
+//         merge(array: T[], merger: T, comparator: (v: T) => boolean): T[];
+//     }
+// }
 
-export function replaceElement<T>(array: T[], replacer: T, comparator: (v: T) => boolean) {
-    return array.map((item) => (comparator(item) ? replacer : item));
-}
+// Array.prototype.replace = function <T>(replacer: T, comparator: (v: T) => boolean): T[] {
+//     return this.map((item) => (comparator(item) ? replacer : item));
+// };
 
-export function mergeElement<T>(array: T[], merger: T, comparator: (v: T) => boolean){
-    const index = array.findIndex(comparator);
-    if (index !== -1) {
-      array[index] = merger;
-    } else {
-      array.push(merger);
-    }
-    return array;
-}
+// Array.prototype.merge = function <T>(merger: T, comparator: (v: T) => boolean): T[] {
+//     const index = this.findIndex(comparator);
+//     if (index !== -1) {
+//         this[index] = merger;
+//     } else {
+//         this.push(merger);
+//     }
+//     return this;
+// };
 
 export function range(start: number, end: number) {
     const result: number[] = [];

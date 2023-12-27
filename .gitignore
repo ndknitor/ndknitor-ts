@@ -2,3 +2,5 @@ node_modules/
 bun.lockkb
 hooks/
 system/
+index.d.ts
+index.js

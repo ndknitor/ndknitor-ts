@@ -1,5 +1,5 @@
 import { useAsyncEffect, useDebounceCall, useDebounceState, useDebouncedEffect, useInitEffect, useThrottledCall, useThrottledEffect, useThrottledState, useToggle } from './hooks';
-import { formatNumber, mergeElement, propertyName, randomInt, range, replaceElement, sleep, truncateString } from './system'
+import { formatNumber, propertyName, randomInt, range, sleep, truncateString } from './system'
 
 export {
     useAsyncEffect,
@@ -12,11 +12,9 @@ export {
     useThrottledState,
     useToggle,
     formatNumber,
-    mergeElement,
     propertyName,
     randomInt,
     range,
-    replaceElement,
     sleep,
     truncateString
 };
