@@ -1,4 +1,4 @@
-import { DependencyList, useCallback, useEffect, useRef, useState, version } from "react";
+import { DependencyList, useCallback, useEffect, useRef, useState } from "react";
 
 export function useAsyncEffect(effect: (isMounted: () => boolean) => unknown | Promise<unknown>, deps: DependencyList) {
     useEffect(function () {
