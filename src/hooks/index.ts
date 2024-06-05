@@ -99,13 +99,3 @@ export function useThrottledCall<T>(initValue: T, callBack: (v: T) => void | Pro
     }, [value], delay);
     return [value, setValue] as [T, Dispatch<SetStateAction<T>>];
 }
-
-export function useInitEffect(effect: () => void | Promise<void> | (() => void) | (() => Promise<void>)) {
-    const inited = useRef(false);
-    useAsyncEffect(async () => {
-        if (!inited.current) {
-            inited.current = true;
-            return await effect();
-        }
-    }, [inited]);
-}
